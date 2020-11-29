@@ -25,10 +25,13 @@ public class PersonInfo  implements Serializable {
     public PersonInfo(){
          this.role = new ArrayList<String>(3);
          this.phone = new ArrayList<String>(3);
+         name = "";
+         surname = "";
+         email = "";
     }
 
     public String getName() {
-        return name;
+        return name == null ? null : name;
     }
 
     public void setName(String name) {
@@ -44,7 +47,7 @@ public class PersonInfo  implements Serializable {
     }
 
     public String getEmail() {
-        return email;
+        return email ;
     }
 
     public void setEmail(String email) {

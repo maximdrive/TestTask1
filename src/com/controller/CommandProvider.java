@@ -2,8 +2,10 @@ package com.controller;
 
 import com.controller.impl.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 final class CommandProvider {
     private final Map<CommandName,Command> repository = new HashMap<>();
@@ -17,14 +19,15 @@ final class CommandProvider {
         repository.put(CommandName.SHOW_ALL_USERS,new ShowAllUsers());
         repository.put(CommandName.SHOW_USER_INFO,new ShowUserInfo());
 
+
     }
 
     Command getCommand(String name){
-        CommandName comName = null;
-        Command com = null;
+        CommandName comName ;
+        Command com ;
 
         try{
-            comName = comName.valueOf(name.toUpperCase());
+            comName = CommandName.valueOf(name.toUpperCase());
             com = repository.get(comName);
         }
         catch(IllegalArgumentException | NullPointerException e){

@@ -62,8 +62,8 @@ public class FileUserDao implements UserDAO {
                 users.remove(us);
                 return;
             }
-            throw new DaoException("ID hasn't been found");
         }
+        throw new DaoException("ID hasn't been found");
     }
 
 
@@ -74,7 +74,11 @@ public class FileUserDao implements UserDAO {
 
     @Override
     public void editUser(int id, User us) throws DaoException {
+        if(findUserByID(id) == null){
+            throw new DaoException("User with this id doesn't exist");
+        }
         users.remove(findUserByID(id));
+
         if(us != null) {
             Registration(us);
             us.setId(id);

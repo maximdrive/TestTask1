@@ -39,7 +39,7 @@ public class UserServiceImp implements UserService {
             UserDAO dao = instance.getUserDAO();
             dao.Registration(us);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class UserServiceImp implements UserService {
         try{
             return dao.showUserInfo(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class UserServiceImp implements UserService {
         try{
             dao.signOut();
         } catch (DaoException e) {
-            throw  new ServiceException(e);
+            throw  new ServiceException(e.getMessage());
         }
 
     }
@@ -92,7 +92,7 @@ public class UserServiceImp implements UserService {
         try{
             dao.deleteUser(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
     }
 
@@ -101,12 +101,11 @@ public class UserServiceImp implements UserService {
         if(id<0 || us == null)
             throw new ServiceException("Incorrect data");
         try{
-            int uId = id;
             DaoFactory instance = DaoFactory.getInstance();
             UserDAO dao = instance.getUserDAO();
-            dao.editUser(uId,us);
+            dao.editUser(id,us);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
 
     }

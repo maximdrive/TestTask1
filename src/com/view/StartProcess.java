@@ -92,6 +92,7 @@ public class StartProcess {
                     return val;
                 }else System.out.println("Wrong input");
             } else {
+                System.out.println("Enter digit");
                 in.next();
             }
         }
@@ -113,7 +114,7 @@ public class StartProcess {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter id of user you want delete");
         System.out.println(controller.executeTask("SHOW_ALL_USERS"));
-        int delId  = getNumFromRange(100);
+        int delId  = getNumFromRange(1000);
         if(warning(in)){
             return delId;
         }
@@ -187,7 +188,7 @@ public class StartProcess {
         int choice;
         System.out.println("Do you have one more?");
         System.out.println("1- Yes \n 2-No");
-        choice = in.nextInt();
+        choice = getNumFromRange(3);
         return choice == 1;
     }
 
@@ -202,7 +203,7 @@ public class StartProcess {
             }
             else return mail;
         }
-        return null;
+        return "";
     }
 
     String getCorrectPhone(Scanner in){
@@ -214,7 +215,7 @@ public class StartProcess {
             }
             else return phone;
         }
-        return null;
+        return "";
     }
 
     private boolean isEmailCorrect(String mail){
