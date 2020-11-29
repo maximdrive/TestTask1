@@ -13,8 +13,8 @@ public class DeleteUser implements Command {
     public String execute(String request) {
         int idUser;
         String response = "";
-        try{
-            if(request.isEmpty()) throw new ParseException("Null data");
+        try {
+            if (request.isEmpty()) throw new ParseException("Null data");
             idUser = Integer.parseInt(request.split(" ")[1]);
 
             ServiceFactory instance = ServiceFactory.getInstance();

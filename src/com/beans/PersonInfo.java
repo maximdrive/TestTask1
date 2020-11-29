@@ -2,9 +2,10 @@ package com.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class PersonInfo  implements Serializable {
+public class PersonInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String surname;
@@ -12,22 +13,22 @@ public class PersonInfo  implements Serializable {
     private ArrayList<String> role;
     private ArrayList<String> phone;
 
-    public PersonInfo(String name, String surname, String email, String role, String phone){
+    public PersonInfo(String name, String surname, String email, String role, String phone) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.role = new ArrayList<String>(3);
+        this.role = new ArrayList<>(3);
         this.role.add(role);
-        this.phone = new ArrayList<String>(3);
+        this.phone = new ArrayList<>(3);
         this.phone.add(phone);
     }
 
-    public PersonInfo(){
-         this.role = new ArrayList<String>(3);
-         this.phone = new ArrayList<String>(3);
-         name = "";
-         surname = "";
-         email = "";
+    public PersonInfo() {
+        this.role = new ArrayList<>(3);
+        this.phone = new ArrayList<>(3);
+        name = "";
+        surname = "";
+        email = "";
     }
 
     public String getName() {
@@ -47,14 +48,14 @@ public class PersonInfo  implements Serializable {
     }
 
     public String getEmail() {
-        return email ;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public ArrayList<String> getRole() {
+    public List<String> getRole() {
         return role;
     }
 
@@ -62,7 +63,7 @@ public class PersonInfo  implements Serializable {
         this.role.add(role);
     }
 
-    public ArrayList<String> getPhone() {
+    public List<String> getPhone() {
         return phone;
     }
 

@@ -13,14 +13,14 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public int SignIn(String login, String password) throws ServiceException {
-        if(login == null || login.isEmpty())
+    public int signIn(String login, String password) throws ServiceException {
+        if (login == null || login.isEmpty())
             throw new ServiceException("Login is not set");
         int id;
-        try{
+        try {
             DaoFactory instance = DaoFactory.getInstance();
             UserDAO dao = instance.getUserDAO();
-            id = dao.SignIn(login,password);
+            id = dao.signIn(login, password);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -28,16 +28,16 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void Registration(User us) throws ServiceException {
-        if(us.getLogin().isEmpty() || us.getPassword().isEmpty() || us.getInfo().getName().isEmpty() ||
-        us.getInfo().getSurname().isEmpty() || us.getInfo().getPhone().isEmpty() ||
-        us.getInfo().getEmail().isEmpty())
+    public void registration(User us) throws ServiceException {
+        if (us.getLogin().isEmpty() || us.getPassword().isEmpty() || us.getInfo().getName().isEmpty() ||
+                us.getInfo().getSurname().isEmpty() || us.getInfo().getPhone().isEmpty() ||
+                us.getInfo().getEmail().isEmpty())
             throw new ServiceException("Fill up all fields");
 
-        try{
+        try {
             DaoFactory instance = DaoFactory.getInstance();
             UserDAO dao = instance.getUserDAO();
-            dao.Registration(us);
+            dao.registration(us);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -51,7 +51,7 @@ public class UserServiceImp implements UserService {
         UserDAO dao = instance.getUserDAO();
         users = dao.showUsers();
 
-        if(users.isEmpty())
+        if (users.isEmpty())
             throw new ServiceException("No users in file");
         return users;
 
@@ -59,11 +59,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User showUserInfo(int id) throws ServiceException {
-        if(id < 0)
+        if (id < 0)
             throw new ServiceException("Wrong id");
         DaoFactory instance = DaoFactory.getInstance();
         UserDAO dao = instance.getUserDAO();
-        try{
+        try {
             return dao.showUserInfo(id);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
@@ -71,25 +71,25 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void signOut() throws ServiceException{
+    public void signOut() throws ServiceException {
         DaoFactory instance = DaoFactory.getInstance();
         UserDAO dao = instance.getUserDAO();
-        try{
+        try {
             dao.signOut();
         } catch (DaoException e) {
-            throw  new ServiceException(e.getMessage());
+            throw new ServiceException(e.getMessage());
         }
 
     }
 
     @Override
     public void deleteUser(int id) throws ServiceException {
-        if(id < 0)
+        if (id < 0)
             throw new ServiceException("Incorrect id");
 
         DaoFactory instance = DaoFactory.getInstance();
         UserDAO dao = instance.getUserDAO();
-        try{
+        try {
             dao.deleteUser(id);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
@@ -98,12 +98,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void editUser(int id, User us) throws ServiceException {
-        if(id<0 || us == null)
+        if (id < 0 || us == null)
             throw new ServiceException("Incorrect data");
-        try{
+        try {
             DaoFactory instance = DaoFactory.getInstance();
             UserDAO dao = instance.getUserDAO();
-            dao.editUser(id,us);
+            dao.editUser(id, us);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }

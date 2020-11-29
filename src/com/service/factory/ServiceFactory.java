@@ -4,15 +4,17 @@ import com.service.UserService;
 import com.service.impl.UserServiceImp;
 
 public class ServiceFactory {
-    private final static ServiceFactory instance= new ServiceFactory();
+    private static final ServiceFactory instance = new ServiceFactory();
     private final UserService userService = new UserServiceImp();
 
-    private ServiceFactory(){}
+    private ServiceFactory() {
+    }
 
-    public static ServiceFactory getInstance(){
+    public static ServiceFactory getInstance() {
         return instance;
     }
-    public UserService getUserService(){
+
+    public UserService getUserService() {
         return userService;
     }
 }

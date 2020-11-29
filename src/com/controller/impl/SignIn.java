@@ -12,7 +12,8 @@ public class SignIn implements Command {
     public String execute(String request) {
         String delimiter = "!!";
 
-        String login,password;
+        String login;
+        String password;
         String responce;
 
         int id;
@@ -24,24 +25,19 @@ public class SignIn implements Command {
             if (parseData.length < 2) throw new ParseException("Incorrect login or password");
             login = parseData[0];
             password = parseData[1];
-            //id = Integer.parseInt(parseData[2]);
-
-            //if(id>0) return "You've already signed";
 
             ServiceFactory serviceFactoryObj = ServiceFactory.getInstance();
             UserService userService = serviceFactoryObj.getUserService();
 
-            try {
-                id = userService.SignIn(login, password);
-                responce = String.valueOf(id);
-            } catch (ServiceException e) {
-                responce = "-1" + "!!" + e.getMessage();
-            }
-            return responce;
-        }catch (ParseException e){
-            return "-1" +"!!" + e.getMessage();
-        }
+            id = userService.signIn(login, password);
+            responce = String.valueOf(id);
 
+        } catch (ParseException e) {
+            return "-1" + "!!" + e.getMessage();
+        } catch (ServiceException e) {
+            responce = "-1" + "!!" + e.getMessage();
+        }
+        return responce;
     }
 
     @Override

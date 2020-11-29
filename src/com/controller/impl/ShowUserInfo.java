@@ -7,7 +7,6 @@ import com.service.UserService;
 import com.service.exception.ServiceException;
 import com.service.factory.ServiceFactory;
 
-import java.util.ArrayList;
 
 public class ShowUserInfo implements Command {
 
@@ -16,8 +15,8 @@ public class ShowUserInfo implements Command {
         int idUser;
         String response;
 
-        try{
-            if(request.isEmpty()) throw new ParseException("Null data");
+        try {
+            if (request.isEmpty()) throw new ParseException("Null data");
             idUser = Integer.parseInt(request.split(" ")[1]);
 
             ServiceFactory instance = ServiceFactory.getInstance();

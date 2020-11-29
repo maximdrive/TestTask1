@@ -13,7 +13,7 @@ public class SignOut implements Command {
         ServiceFactory instance = ServiceFactory.getInstance();
         UserService service = instance.getUserService();
 
-        try{
+        try {
             service.signOut();
             response = "Bye! See you later!";
         } catch (ServiceException e) {

@@ -6,7 +6,7 @@ public class Controller {
     private final CommandProvider provider = new CommandProvider();
 
 
-    public String executeTask(String request){
+    public String executeTask(String request) {
         String commandName;
         Command execCommand;
 
@@ -19,7 +19,7 @@ public class Controller {
         return response;
     }
 
-    public String executeTask(CommandName com, User user){
+    public String executeTask(CommandName com, User user) {
 
         Command execCommand;
         execCommand = provider.getCommand(com.toString());

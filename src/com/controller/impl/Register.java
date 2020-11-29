@@ -19,8 +19,8 @@ public class Register implements Command {
         ServiceFactory istance = ServiceFactory.getInstance();
         UserService service = istance.getUserService();
 
-        try{
-            service.Registration(user);
+        try {
+            service.registration(user);
             response = "Registered succesfully";
         } catch (ServiceException e) {
             response = e.getMessage();

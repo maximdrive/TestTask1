@@ -11,28 +11,25 @@ import java.util.ArrayList;
 public class ShowAllUsers implements Command {
     @Override
     public String execute(String request) {
+        ArrayList<User> users;
+        String responce = "";
+
+        ServiceFactory serviceFactoryObj = ServiceFactory.getInstance();
+        UserService userService = serviceFactoryObj.getUserService();
+
         try {
-            ArrayList<User> users;
-            String responce = "";
-
-            ServiceFactory serviceFactoryObj = ServiceFactory.getInstance();
-            UserService userService = serviceFactoryObj.getUserService();
-
-            try {
-                users = userService.showUsers();
-                for (User user : users) {
-                    responce += user + "\n";
-                }
-                return responce;
-
-            } catch (ServiceException e) {
-                e.printStackTrace();
-                responce = e.getMessage();
+            users = userService.showUsers();
+            StringBuilder bld = new StringBuilder();
+            for (User user : users) {
+                bld.append(user).append("\n");
             }
-            return responce;
-        }catch (Exception e){
-            return e.getLocalizedMessage();
+            responce = bld.toString();
+
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            responce = e.getMessage();
         }
+        return responce;
     }
 
     @Override

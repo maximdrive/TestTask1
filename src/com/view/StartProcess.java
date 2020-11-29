@@ -4,7 +4,6 @@ import com.beans.User;
 import com.controller.CommandName;
 import com.controller.Controller;
 import com.service.UserService;
-import com.service.exception.ServiceException;
 import com.service.factory.ServiceFactory;
 
 import java.util.Scanner;
@@ -17,15 +16,16 @@ public class StartProcess {
     Controller controller;
     ServiceFactory instance = ServiceFactory.getInstance();
     UserService service = instance.getUserService();
-    public StartProcess(){
+
+    public StartProcess() {
         controller = new Controller();
         startMenu();
     }
-    String recvCommand = "";
+
     String sendCommand = "";
 
-    public void startMenu(){
-        while(true) {
+    public void startMenu() {
+        while (true) {
             System.out.println("1-Sign In");
             System.out.println("2-Register new accaunt");
             System.out.println("0-Exit");
@@ -39,21 +39,23 @@ public class StartProcess {
                     if (id > 0) {
                         System.out.println("You are welcome");
                         userMenu();
-                    }
-                    else System.out.println("Wrong login or password");
+                    } else System.out.println("Wrong login or password");
                     break;
                 case 2:
-                        System.out.println(controller.executeTask(CommandName.REGISTRATION,enterAccInfo()));
+                    System.out.println(controller.executeTask(CommandName.REGISTRATION, enterAccInfo()));
                     break;
 
                 case 0:
                     return;
+
+                default:
+                    System.out.println("Choose the option");
             }
         }
     }
 
-    public void userMenu(){
-        while(true) {
+    public void userMenu() {
+        while (true) {
             System.out.println("1-Show all users");
             System.out.println("2-Edit User");
             System.out.println("3-Show user info");
@@ -70,27 +72,31 @@ public class StartProcess {
                     break;
                 case 3:
                     System.out.println("Enter id of user");
-                    System.out.println(controller.executeTask("SHOW_USER_INFO " + getNumFromRange(100)));
+                    System.out.println(controller.executeTask("SHOW_USER_INFO " + getNumFromRange(1000)));
                     break;
                 case 4:
                     System.out.println(controller.executeTask("DELETE_USER " + deleteUser()));
                     break;
-                case 0: case 5:
+                case 0:
+                case 5:
                     System.out.println(controller.executeTask("SIGN_OUT"));
                     return;
 
+                default:
+                    System.out.println("Choose the option");
             }
+            clearScreen();
         }
     }
 
-    public int getNumFromRange(int range){
+    public int getNumFromRange(int range) {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             if (in.hasNextInt()) {
                 int val = in.nextInt();
                 if (val >= 0 && val <= range) {
                     return val;
-                }else System.out.println("Wrong input");
+                } else System.out.println("Wrong input");
             } else {
                 System.out.println("Enter digit");
                 in.next();
@@ -99,8 +105,9 @@ public class StartProcess {
         return -1;
     }
 
-    public String enterLogin(){
-        String login, password;
+    public String enterLogin() {
+        String login;
+        String password;
         System.out.println("Enter your login: ");
         Scanner in = new Scanner(System.in);
         login = in.next();
@@ -110,22 +117,21 @@ public class StartProcess {
         return login + "!!" + password;
     }
 
-    public int deleteUser(){
+    public int deleteUser() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter id of user you want delete");
         System.out.println(controller.executeTask("SHOW_ALL_USERS"));
-        int delId  = getNumFromRange(1000);
-        if(warning(in)){
+        int delId = getNumFromRange(1000);
+        if (warning(in)) {
             return delId;
         }
         return -1;
     }
 
-    public User editUser(){
-        Scanner in = new Scanner(System.in);
+    public User editUser() {
         System.out.println("Enter id of user you want edit");
         System.out.println(controller.executeTask("SHOW_ALL_USERS"));
-        int editId = getNumFromRange(100);
+        int editId = getNumFromRange(1000);
         User us = new User();
 
         us = enterAccInfo();
@@ -133,7 +139,7 @@ public class StartProcess {
         return us;
     }
 
-    public boolean warning(Scanner in){
+    public boolean warning(Scanner in) {
         System.out.println("Are you sure?");
         System.out.println("1 - Yes \n 2- No");
 
@@ -141,7 +147,7 @@ public class StartProcess {
     }
 
 
-    public User enterAccInfo(){
+    public User enterAccInfo() {
         User user = new User();
         System.out.println("Hi! You can create or edit account here, follow the instructions: ");
         Scanner in = new Scanner(System.in);
@@ -157,18 +163,18 @@ public class StartProcess {
 
         user.getInfo().setEmail(getCorrectEmail(in));
         System.out.println("Enter your roles (3 is maximum): ");
-        for(int i = 0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             user.getInfo().setRole(in.next());
-            if(!multipleDataEntering(in))
+            if (!multipleDataEntering())
                 break;
-            if(i == 2) System.out.println("You can't add more roles!");
+            if (i == 2) System.out.println("You can't add more roles!");
         }
         System.out.println("Enter your phones(3 is maximum): ");
-        for(int i = 0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             user.getInfo().setPhone(getCorrectPhone(in));
-            if(!multipleDataEntering(in))
+            if (!multipleDataEntering())
                 break;
-            if(i == 2) System.out.println("You can't add more phones!");
+            if (i == 2) System.out.println("You can't add more phones!");
         }
 
         return user;
@@ -184,7 +190,7 @@ public class StartProcess {
     }
 
 
-    public boolean multipleDataEntering(Scanner in){
+    public boolean multipleDataEntering() {
         int choice;
         System.out.println("Do you have one more?");
         System.out.println("1- Yes \n 2-No");
@@ -193,39 +199,36 @@ public class StartProcess {
     }
 
 
-
-    String getCorrectEmail(Scanner in){
+    String getCorrectEmail(Scanner in) {
         String mail = in.next();
-        for(int i = 0; i<3; i++){
-            if(!isEmailCorrect(mail)) {
+        for (int i = 0; i < 3; i++) {
+            if (!isEmailCorrect(mail)) {
                 System.out.println("Wrong email!");
                 mail = in.next();
-            }
-            else return mail;
+            } else return mail;
         }
         return "";
     }
 
-    String getCorrectPhone(Scanner in){
+    String getCorrectPhone(Scanner in) {
         String phone = in.next();
-        for(int i = 0; i<3; i++){
-            if(!isPhoneCorrect(phone)) {
+        for (int i = 0; i < 3; i++) {
+            if (!isPhoneCorrect(phone)) {
                 System.out.println("Wrong phone!");
                 phone = in.next();
-            }
-            else return phone;
+            } else return phone;
         }
         return "";
     }
 
-    private boolean isEmailCorrect(String mail){
+    private boolean isEmailCorrect(String mail) {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
                 "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher matcher = pattern.matcher(mail);
         return matcher.matches();
     }
 
-    private boolean isPhoneCorrect(String phone){
+    private boolean isPhoneCorrect(String phone) {
         Pattern pattern = Pattern.compile("(\\+*)375\\d{9}");
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();

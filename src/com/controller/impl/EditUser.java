@@ -5,7 +5,6 @@ import com.controller.Command;
 import com.service.UserService;
 import com.service.exception.ServiceException;
 import com.service.factory.ServiceFactory;
-import com.view.StartProcess;
 
 public class EditUser implements Command {
 
@@ -20,7 +19,7 @@ public class EditUser implements Command {
         ServiceFactory istance = ServiceFactory.getInstance();
         UserService service = istance.getUserService();
 
-        try{
+        try {
             service.editUser(user.getId(), user);
             response = "Edited succesfully";
         } catch (ServiceException e) {

@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-        private PersonInfo info;
-        private String login;
-        private String password;
-        private int id;
+    private PersonInfo info;
+    private String login;
+    private String password;
+    private int id;
 
     public PersonInfo getInfo() {
         return info;
@@ -43,19 +43,21 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setPerson(String name, String surname, String email, String role,String phone){
+    public void setPerson(String name, String surname, String email, String role, String phone) {
         info.setName(name);
         info.setEmail(email);
         info.setPhone(phone);
         info.setRole(role);
         info.setSurname(surname);
     }
-    public User(String login, String password, int id){
+
+    public User(String login, String password, int id) {
         info = new PersonInfo();
         this.login = login;
         this.password = password;
         this.id = id;
     }
+
     public User() {
         info = new PersonInfo();
     }
@@ -70,7 +72,6 @@ public class User implements Serializable {
                 login.equals(user.login) &&
                 password.equals(user.password);
     }
-
 
 
     @Override

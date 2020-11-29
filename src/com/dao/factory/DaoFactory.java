@@ -8,12 +8,14 @@ public class DaoFactory {
 
     private final UserDAO fileUserImpl = new FileUserDao();
 
-    private DaoFactory(){}
+    private DaoFactory() {
+    }
 
-    public static DaoFactory getInstance(){
+    public static DaoFactory getInstance() {
         return instance;
     }
-    public UserDAO getUserDAO(){
+
+    public UserDAO getUserDAO() {
         return fileUserImpl;
     }
 
