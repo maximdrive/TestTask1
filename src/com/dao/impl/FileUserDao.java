@@ -15,9 +15,17 @@ import java.util.regex.Pattern;
 public class FileUserDao implements UserDAO {
     private ArrayList<User> users;
     private static final String ADMIN = "admin";
+    private static final String FilePath = "myObjects.bin";
+
 
     public FileUserDao() {
-        users = (ArrayList<User>) readAllFile();
+        List<User> temp = readAllFile();
+        if(!temp.isEmpty()) {
+            users = (ArrayList<User>) temp;
+        }else {
+            users = new ArrayList<>();
+            createDefaultUser();
+        }
     }
 
     @Override
@@ -100,7 +108,7 @@ public class FileUserDao implements UserDAO {
 
 
     public void writeFile() throws DaoException {
-        try (FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
+        try (FileOutputStream f = new FileOutputStream(new File(FilePath));
              ObjectOutputStream o = new ObjectOutputStream(f)) {
             o.writeObject(users);
         } catch (IOException e) {
@@ -109,12 +117,9 @@ public class FileUserDao implements UserDAO {
     }
 
     public List<User> readAllFile() {
-        try (FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
+        try (FileInputStream fi = new FileInputStream(new File(FilePath));
              ObjectInputStream oi = new ObjectInputStream(fi)) {
             users = (ArrayList<User>) oi.readObject();
-            if (users.isEmpty()) {
-                createDefaultUser();
-            }
             return users;
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
