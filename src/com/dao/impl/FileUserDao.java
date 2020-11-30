@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import com.beans.PersonInfo;
 import com.beans.User;
 import com.dao.UserDAO;
 import com.dao.exception.DaoException;
@@ -41,10 +42,10 @@ public class FileUserDao implements UserDAO {
     public void registration(User us) throws DaoException {
         if (!isLoginUnique(us.getLogin()))
             throw new DaoException("Login is not unique");
-        if (!isEmailCorrect(us.getInfo().getEmail()))
+        if (!PersonInfo.isEmailCorrect(us.getInfo().getEmail()))
             throw new DaoException("Email is not correct");
         for (String phone : us.getInfo().getPhone()) {
-            if (!isPhoneCorrect(phone))
+            if (!PersonInfo.isPhoneCorrect(phone))
                 throw new DaoException("Phone is not correct");
         }
 
@@ -136,18 +137,6 @@ public class FileUserDao implements UserDAO {
         return true;
     }
 
-    private boolean isEmailCorrect(String mail) {
-        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-                "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.matches();
-    }
-
-    private boolean isPhoneCorrect(String phone) {
-        Pattern pattern = Pattern.compile("(\\+*)375\\d{9}");
-        Matcher matcher = pattern.matcher(phone);
-        return matcher.matches();
-    }
 
     private void createDefaultUser() {
 

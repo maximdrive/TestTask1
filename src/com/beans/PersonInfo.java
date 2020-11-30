@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PersonInfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -97,5 +99,18 @@ public class PersonInfo implements Serializable {
                 ", role=" + role +
                 ", phone=" + phone +
                 '}';
+    }
+
+    public static boolean isEmailCorrect(String mail) {
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
+                "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(mail);
+        return matcher.matches();
+    }
+
+    public static boolean isPhoneCorrect(String phone) {
+        Pattern pattern = Pattern.compile("(\\+*)375\\d{9}");
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
     }
 }
