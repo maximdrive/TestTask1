@@ -1,5 +1,7 @@
 package com.beans;
 
+import com.beans.roles.Roles;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,10 @@ public class PersonInfo implements Serializable {
     private String name;
     private String surname;
     private String email;
-    private ArrayList<String> role;
+    private ArrayList<Roles> role;
     private ArrayList<String> phone;
 
-    public PersonInfo(String name, String surname, String email, String role, String phone) {
+    public PersonInfo(String name, String surname, String email, Roles role, String phone) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -57,11 +59,11 @@ public class PersonInfo implements Serializable {
         this.email = email;
     }
 
-    public List<String> getRole() {
+    public List<Roles> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role.add(role);
     }
 

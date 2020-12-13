@@ -7,34 +7,35 @@ import java.util.Scanner;
 
 public class LoginMenu {
 
+    private InputServices input;
     private Controller controller;
     private String sendCommand = "";
 
     public LoginMenu(Controller controller){
         this.controller = controller;
+        input = new InputServices();
         startMenu();
     }
 
-    private int id = -1;
     public void startMenu() {
         while (true) {
             System.out.println("1-Sign In");
             System.out.println("2-Register new accaunt");
             System.out.println("0-Exit");
 
-            int choice = InputServices.getNumFromRange(2);
+            int choice = input.getNumFromRange(2);
 
             switch (choice) {
                 case 1:
                     sendCommand = controller.executeTask("SIGN_IN " + enterLogin());
-                    id = Integer.parseInt(sendCommand.split("!!")[0]);
-                    if (id > 0) {
+                    int id = Integer.parseInt(sendCommand.split("!!")[0]);
+                    if (id >= 0) {
                         System.out.println("You are welcome");
-                        new UserMenu(controller);
+                        new UserMenu(controller,input);
                     } else System.out.println("Wrong login or password");
                     break;
                 case 2:
-                    System.out.println(controller.executeTask(CommandName.REGISTRATION, InputServices.enterAccInfo()));
+                    System.out.println(controller.executeTask(CommandName.REGISTRATION,input.enterAccInfo()));
                     break;
 
                 case 0:

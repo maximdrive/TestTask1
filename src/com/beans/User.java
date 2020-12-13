@@ -1,6 +1,8 @@
 package com.beans;
 
 
+import com.beans.roles.Roles;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -43,7 +45,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setPerson(String name, String surname, String email, String role, String phone) {
+    public void setPerson(String name, String surname, String email, Roles role, String phone) {
         info.setName(name);
         info.setEmail(email);
         info.setPhone(phone);

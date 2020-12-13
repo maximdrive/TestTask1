@@ -3,11 +3,11 @@ package com.controller;
 import com.controller.impl.*;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
+
 
 final class CommandProvider {
-    private final Map<CommandName, Command> repository = new HashMap<>();
+    private final EnumMap<CommandName, Command> repository = new EnumMap<>(CommandName.class);
 
     CommandProvider() {
         repository.put(CommandName.SIGN_IN, new SignIn());

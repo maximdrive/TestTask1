@@ -12,7 +12,7 @@ public class ShowAllUsers implements Command {
     @Override
     public String execute(String request) {
         ArrayList<User> users;
-        String responce = "";
+        String response = "";
 
         ServiceFactory serviceFactoryObj = ServiceFactory.getInstance();
         UserService userService = serviceFactoryObj.getUserService();
@@ -23,13 +23,12 @@ public class ShowAllUsers implements Command {
             for (User user : users) {
                 bld.append(user).append("\n");
             }
-            responce = bld.toString();
+            response = bld.toString();
 
         } catch (ServiceException e) {
-            e.printStackTrace();
-            responce = e.getMessage();
+            response = e.getMessage();
         }
-        return responce;
+        return response;
     }
 
     @Override

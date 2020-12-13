@@ -1,16 +1,17 @@
 package com.view;
 
-import com.beans.PersonInfo;
 import com.beans.User;
 import com.controller.CommandName;
 import com.controller.Controller;
 
-import java.util.Scanner;
+
 
 public class UserMenu {
+    private InputServices input;
     private Controller controller;
-    public UserMenu(Controller controller){
+    public UserMenu(Controller controller,InputServices input){
         this.controller = controller;
+        this.input = input;
         userMenu();
     }
 
@@ -22,7 +23,7 @@ public class UserMenu {
             System.out.println("4-Delete user");
             System.out.println("5-Sign Out");
             System.out.println("0-Exit");
-            int choice = InputServices.getNumFromRange(5);
+            int choice = input.getNumFromRange(5);
             switch (choice) {
                 case 1:
                     System.out.println(controller.executeTask("SHOW_ALL_USERS"));
@@ -32,7 +33,7 @@ public class UserMenu {
                     break;
                 case 3:
                     System.out.println("Enter id of user");
-                    System.out.println(controller.executeTask("SHOW_USER_INFO " + InputServices.getNumFromRange(1000)));
+                    System.out.println(controller.executeTask("SHOW_USER_INFO " + input.getNumFromRange(1000)));
                     break;
                 case 4:
                     System.out.println(controller.executeTask("DELETE_USER " + deleteUser()));
@@ -52,7 +53,7 @@ public class UserMenu {
     public int deleteUser() {
         System.out.println("Enter id of user you want delete");
         System.out.println(controller.executeTask("SHOW_ALL_USERS"));
-        int delId = InputServices.getNumFromRange(1000);
+        int delId = input.getNumFromRange(1000);
         if (warning()) {
             return delId;
         }
@@ -62,10 +63,10 @@ public class UserMenu {
     public User editUser() {
         System.out.println("Enter id of user you want edit");
         System.out.println(controller.executeTask("SHOW_ALL_USERS"));
-        int editId = InputServices.getNumFromRange(1000);
-        User us = new User();
+        int editId = input.getNumFromRange(1000);
+        User us;
 
-        us = InputServices.enterAccInfo();
+        us = input.enterAccInfo();
         us.setId(editId);
         return us;
     }
@@ -74,7 +75,7 @@ public class UserMenu {
         System.out.println("Are you sure?");
         System.out.println("1 - Yes \n 2- No");
 
-        return InputServices.getNumFromRange(2) == 1;
+        return input.getNumFromRange(2) == 1;
     }
 
 

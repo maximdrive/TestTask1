@@ -1,5 +1,6 @@
 package com.service.impl;
 
+
 import com.beans.User;
 import com.dao.UserDAO;
 import com.dao.exception.DaoException;
@@ -33,6 +34,10 @@ public class UserServiceImp implements UserService {
                 us.getInfo().getSurname().isEmpty() || us.getInfo().getPhone().isEmpty() ||
                 us.getInfo().getEmail().isEmpty())
             throw new ServiceException("Fill up all fields");
+        for(int i =0; i<us.getInfo().getRole().size(); i++) {
+            if (us.getInfo().getRole().get(i) == null)
+                throw new ServiceException("Role is incorrect");
+        }
 
         try {
             DaoFactory instance = DaoFactory.getInstance();

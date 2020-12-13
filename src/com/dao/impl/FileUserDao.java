@@ -1,6 +1,7 @@
 package com.dao.impl;
 
 import com.beans.PersonInfo;
+import com.beans.roles.Roles;
 import com.beans.User;
 import com.dao.UserDAO;
 import com.dao.exception.DaoException;
@@ -10,8 +11,6 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FileUserDao implements UserDAO {
     private ArrayList<User> users;
@@ -50,10 +49,22 @@ public class FileUserDao implements UserDAO {
         }
 
 
-        us.setId(users.size() + 1);
+        int id = users.size()+1;
+        while(!isIdUnique(id)){
+            id++;
+        }
+        us.setId(id);
         users.add(us);
         writeFile();
 
+    }
+
+    public boolean isIdUnique(int id){
+        for(User us : users){
+            if(id == us.getId())
+                return false;
+        }
+        return true;
     }
 
     @Override
@@ -144,7 +155,7 @@ public class FileUserDao implements UserDAO {
         us.setLogin(ADMIN);
         us.setPassword(ADMIN);
         us.setId(1);
-        us.setPerson("Admin", "Adminov", "admin@mail.ru", ADMIN, "375291684205");
+        us.setPerson("Admin", "Adminov", "admin@mail.ru", Roles.ADMIN, "375291684205");
         users.add(us);
     }
 }
