@@ -9,7 +9,7 @@ public class LoginMenu {
 
     private InputServices input;
     private Controller controller;
-    private String sendCommand = "";
+
 
     public LoginMenu(Controller controller){
         this.controller = controller;
@@ -18,6 +18,7 @@ public class LoginMenu {
     }
 
     public void startMenu() {
+        String sendCommand = "";
         while (true) {
             System.out.println("1-Sign In");
             System.out.println("2-Register new accaunt");

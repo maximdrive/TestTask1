@@ -38,7 +38,6 @@ public class InputServices {
     public User enterAccInfo() {
         User user = new User();
         System.out.println("Hi! You can create or edit account here, follow the instructions: ");
-        Scanner in = new Scanner(System.in);
         System.out.println("Enter new login: ");
         user.setLogin(in.next());
         System.out.println("Enter new password: ");
